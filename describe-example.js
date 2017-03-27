@@ -30,140 +30,69 @@ testSuite('truthy => ', () => {
 });
 
 testSuite('Async Set 1 partial',()=>{
-  
   test('async test 1',(done)=>{
-  setTimeout(()=>{
-     done(null,![]);
-  },7000);
-  },(...params)=>{
-      var [successLogger,failureLogger,desc,descArray,index,loggerObject,printToFile,err,value]=params;
-      if(err){
-      descArray[index] = loggerObject(failureLogger,desc,err.message);
-      return;
-      }
-      try{
-        assert.equal(value,false);
+    setTimeout(()=>{
+       try{
+        assert.equal(![],true);
+        done(null,'success');
+       }catch(e){
+          console.log('in catch block',e.message);
+          done(e.message);
+       }
        
-        descArray[index] = loggerObject(successLogger,desc);
-      }catch (e){
-       descArray[index] = loggerObject(failureLogger,desc,e.message);
-      }
-      printToFile(descArray);
+    },3000);
   });
+});
 
-
-   test('name is anil', () => {
-      assert.equal('anil', 'anil');
+testSuite('Async Set 2 partial',()=>{
+  test('async test 2',(done) => {
+      setTimeout(()=>{
+         try{
+          assert.equal(![],true);
+          done(null,'success');
+         }catch(e){
+            console.log('in catch block',e.message);
+            done(e.message);
+         }
+         
+      },3000);
     });
-   
-   test('async test 3',(done)=> {
-    setTimeout(() => {
-      var a = 2;
-      done(null,a);
-  }, 2000);
-   },(...params) => {
-      var [successLogger,failureLogger,desc,descArray,index,loggerObject,printToFile,err,value]=params;
-      if(err){
-      descArray[index] = loggerObject(failureLogger,desc,err.message);
-      return;
-      }
-      try{
-        assert.equal(3,value);
-       descArray[index] = loggerObject(successLogger,desc);
-      }catch (e){
-       descArray[index] = loggerObject(failureLogger,desc,e.message);
-      }
-      printToFile(descArray);
+});
+
+testSuite('Async Set 3 partial',()=>{
+  test('async test 3',(done) => {
+      setTimeout(()=>{
+         try{
+          assert.equal(![],true);
+          done(null,'success');
+         }catch(e){
+            console.log('in catch block',e.message);
+            done(e.message);
+         }
+         
+      },4000);
     });
-   
+});
 
-   test('name is sunil', () => {
-      assert.equal('sunil', 'sunil');
+
+testSuite('Async Set 4 partial',()=>{
+  test('name is anil', () => {
+    assert.equal('anil','anil');
+  });
+  test('async test 4',(done) => {
+      setTimeout(()=>{
+         try{
+          assert.equal(![],true);
+          done(null,'success');
+         }catch(e){
+            console.log('in catch block',e.message);
+            done(e.message);
+         }
+         
+      },2000);
     });
-})
-testSuite('Async Set 2',() => {
-  test('object assertion',(done)=>{
-  setTimeout(()=>{
-     done(null,{a:2,b:3});
-  },3000);
-  },(...params)=>{
-      var [successLogger,failureLogger,desc,descArray,index,loggerObject,printToFile,err,value]=params;
-      if(err){
-      descArray[index] = loggerObject(failureLogger,desc,err.message);
-      return;
-      }
-      try{
-        assert.equal(value.a,2);
-        assert.equal(value.b,3);
-       
-        descArray[index] = loggerObject(successLogger,desc);
-      }catch (e){
-       descArray[index] = loggerObject(failureLogger,desc,e.message);
-      }
-      printToFile(descArray);
+  test('5 is equal to 5', () => {
+    assert.equal(5, 5);
   });
 
-  test('array assertion',(done) => {
-  setTimeout(() => {
-     done(null,[1,2,3,45,5]);
-  },5000);
-  },(...params)=>{
-      var [successLogger,failureLogger,desc,descArray,index,loggerObject,printToFile,err,value]=params;
-      if(err){
-      descArray[index] = loggerObject(failureLogger,desc,err.message);
-      return;
-      }
-      try{
-        assert.equal((value.length==5),false);
-       
-        descArray[index] = loggerObject(successLogger,desc);
-      }catch (e){
-       descArray[index] = loggerObject(failureLogger,desc,e.message);
-      }
-      printToFile(descArray);
-  });
-
-  test('string assertion',(done)=>{
-  setTimeout(()=>{
-     done(null,'mocha');
-  },7000);
-  },(...params)=>{
-      var [successLogger,failureLogger,desc,descArray,index,loggerObject,printToFile,err,value]=params;
-      if(err){
-      descArray[index] = loggerObject(failureLogger,desc,err.message);
-      return;
-      }
-      try{
-        assert.equal(value.toUpperCase(value),'MOCHA');
-       
-        descArray[index] = loggerObject(successLogger,desc);
-      }catch (e){
-       descArray[index] = loggerObject(failureLogger,desc,e.message);
-      }
-      printToFile(descArray);
-  });
-  
-  test('synchronous test in between asynchronous',()=>{
-    assert.equal(!![0], false);
-  });
-
-  test('number assertion',(done)=>{
-  setTimeout(()=>{
-     done(null,45);
-  },7000);
-  },(...params)=>{
-      var [successLogger,failureLogger,desc,descArray,index,loggerObject,printToFile,err,value]=params;
-      if(err){
-      descArray[index] = loggerObject(failureLogger,desc,err.message);
-      return;
-      }
-      try{
-        assert.equal((value<34),true);
-       
-        descArray[index] = loggerObject(successLogger,desc);
-      }catch (e){
-       descArray[index] = loggerObject(failureLogger,desc,e.message);
-      }
-      printToFile(descArray);
-  });
-})
+});
