@@ -18,13 +18,15 @@ const loggerObject = function(logger,...params){
  };
 }
 const printToFile=(array)=>{
-  var textToBecopied=''
+  //console.log('writing the file');
+  var textToBecopied='';
   array.forEach((element,index,array) => {
           var resultText=element();
           resultText+=' \n';//newline
           resultText+='......................................................\n';
           textToBecopied+=resultText;
   });
+  //console.log(textToBecopied);
   fs.writeFileSync('output.txt',textToBecopied,'utf-8');
 }
 const activity = {};
@@ -63,32 +65,34 @@ const execTestSuite = (title, testSuiteFn) => {
   
 };
 
-const reportTests = (fn, title , done) => {
+const reportTests = (fn, title) => {
 const desc = indentedTitle(title);
-
-if(done){
-  index++;
-  var doneBinded = done.bind(ctx,success,failure,desc,descArray,index,loggerObject,printToFile);
-  fn.call(ctx,doneBinded);
-  return;
+const done=(index,err,value)=>{
+   if(err){
+       descArray[index] = loggerObject(failure,desc,err);
+  }else{
+        descArray[index] = loggerObject(success,desc);
+      }
+  printToFile(descArray);
+      
 }
-
 try {
-    fn.call(ctx);
-    descArray[++index]=loggerObject(success,desc);
-  } catch (e) {
-    descArray[++index] = loggerObject(failure,desc,e.message);
-  }
+    var t=fn.call(ctx,done.bind(null,++index));
+    descArray[index]=loggerObject(success,desc);
+    } catch (e) {
+      descArray[index] = loggerObject(failure,desc,e.message);  
+    }
   
 };
+
 activity.setup = fn => fn.call(ctx);
 activity.teardown = fn => fn.call(ctx);
 activity.testSuites = ([title, testFn]) =>
-  execTestSuite(title, testFn);
-activity.tests = ([title, testFn,done]) =>
-reportTests(testFn, title, done);
+execTestSuite(title, testFn);
+activity.tests = ([title, testFn]) =>
+reportTests(testFn, title);
 
-export const test = (desc, fn, done) => spush('tests', [desc, fn, done]);
+export const test = (desc, fn) => spush('tests', [desc, fn]);
 export const testSuite = (title, testfn) => {
   if (isEmptyStack()) {
     execTestSuite(title, testfn);
