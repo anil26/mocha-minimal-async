@@ -1,6 +1,6 @@
 # mini-mocha
 
-A minimal synchronous mocha like DSL.
+A minimal asynchronous mocha like DSL.
 
 
 This project is based on the synchronous implemention of minimal mocha testing framework at https://github.com/ciju/mini-mocha.
